@@ -21,7 +21,6 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
-
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     implementation files('C:/projects/java/spring/java_isobit/build/libs/isobit.jar')
