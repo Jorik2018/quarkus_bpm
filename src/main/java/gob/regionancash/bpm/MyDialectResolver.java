@@ -9,11 +9,11 @@ public class MyDialectResolver implements DialectResolver {
 
     public Dialect resolveDialect(DialectResolutionInfo info) {
         for (Database database : Database.values()) {
-            Dialect dialect = database.resolveDialect(info);
+            /*Dialect dialect = database.resolveDialect(info);
             if (dialect != null) {
                 dialect.getKeywords().add("separator");
                 return dialect;
-            }
+            }*/
         }
 
         return null;

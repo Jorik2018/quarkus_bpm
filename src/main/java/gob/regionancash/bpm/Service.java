@@ -24,13 +24,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
+
 import javax.swing.event.ListSelectionEvent;
-import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.isobit.app.X;
@@ -42,12 +43,12 @@ import org.isobit.util.XDate;
 import org.isobit.util.XMap;
 import org.isobit.util.XUtil;
 
-import gob.regionancash.bpm.jpa.BpmActivity;
-import gob.regionancash.bpm.jpa.BpmDispatch;
-import gob.regionancash.bpm.jpa.BpmDispatchField;
-import gob.regionancash.bpm.jpa.BpmField;
-import gob.regionancash.bpm.jpa.BpmProcessRun;
-import gob.regionancash.bpm.jpa.BpmRelation;
+import gob.regionancash.bpm.model.BpmActivity;
+import gob.regionancash.bpm.model.BpmDispatch;
+import gob.regionancash.bpm.model.BpmDispatchField;
+import gob.regionancash.bpm.model.BpmField;
+import gob.regionancash.bpm.model.BpmProcessRun;
+import gob.regionancash.bpm.model.BpmRelation;
 
 @Transactional
 @ApplicationScoped
@@ -332,7 +333,8 @@ public class Service {
 					// Se itera en los valores que estan en los campos registrados
 					if (tc.length > 2) {
 						if (tc[0].startsWith("#")) {
-							BpmActivity activity2 = new BpmActivity(-dispatch.getId());
+							BpmActivity activity2 = new BpmActivity();
+							activity2.setId(-dispatch.getId());
 							activity2.setDependencyId(activity.getDependencyId());
 							activity2.setPositionId(activity.getPositionId());
 							activity = activity2;
