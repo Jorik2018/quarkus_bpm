@@ -34,9 +34,10 @@ import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.isobit.app.X;
-import org.isobit.app.jpa.User;
-import org.isobit.directory.jpa.Dependency;
-import org.isobit.directory.jpa.People;
+import org.isobit.app.model.User;
+import org.isobit.app.service.UserService;
+import org.isobit.directory.model.Dependency;
+import org.isobit.directory.model.People;
 import org.isobit.util.XDate;
 import org.isobit.util.XMap;
 import org.isobit.util.XUtil;

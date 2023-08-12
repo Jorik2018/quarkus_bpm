@@ -25,6 +25,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.isobit.app.service.UserService;
 import org.isobit.util.XUtil;
 
 import gob.regionancash.bpm.jpa.BpmProcessRun;
