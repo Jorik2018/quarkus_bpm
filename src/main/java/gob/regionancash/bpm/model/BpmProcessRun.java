@@ -71,7 +71,8 @@ public class BpmProcessRun extends PanacheEntityBase implements Serializable {
     
     private Integer number;
 
-    private Text subject;
+@Column(length = 2048)	
+    private String subject;
     
 	private boolean canceled;
 
