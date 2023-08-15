@@ -44,6 +44,7 @@ public class Position implements Serializable {
     @Column(name = "abreviatura")
     private String abrev;
 
+    @Column(name = "estado")
     private Character status='1';
 
 }

@@ -545,7 +545,7 @@ public class Service {
 					// Solo sirve si se deseara cargar el mismo dispach para editarlo
 				}
 				List<BpmDispatchField> dispatchFieldList2 = em
-						.createQuery("SELECT rf FROM BpmDispatchField rf WHERE rf.dispatchId=:dispatchId AND rf.canceled=0")
+						.createQuery("SELECT rf FROM BpmDispatchField rf WHERE rf.dispatchId=:dispatchId AND rf.canceled=FALSE")
 						.setParameter("dispatchId", dispatch.getId()).getResultList();
 
 			} else if (XUtil.intValue(entity.getActivityId()) == 0) {
@@ -635,7 +635,7 @@ public class Service {
 						+ "LEFT JOIN BpmActivity ato ON ato.id=r.activityId LEFT JOIN People p ON p.id=r.peopleId \n"
 						+ "LEFT JOIN Dependency de ON de.id=r.dependencyId LEFT JOIN de.type t \n"
 						+ "LEFT JOIN Position po ON po.id=r.positionId  \n"
-						+ "LEFT JOIN BpmDispatchField rf ON rf.dispatchId=r.id AND rf.canceled=0 \n"
+						+ "LEFT JOIN BpmDispatchField rf ON rf.dispatchId=r.id AND rf.canceled=FALSE \n"
 						+ "LEFT JOIN BpmField f ON f.id=rf.fieldId WHERE r.entityId=:entity ORDER BY r.id \n")
 				.setParameter("entity", id).getResultList();
 		List details2 = new ArrayList();
@@ -852,12 +852,12 @@ public class Service {
 				"SELECT ru,di,GROUP_CONCAT(CONCAT(fi.name,'=',df.value),'|') " + (pre = " FROM BpmProcessRun ru ")
 				// Se intenta cargar los campos iniciales del proceso
 						+ ("LEFT JOIN BpmDispatch di0 ON di0.entityId=ru.id AND di0.activityId=37 "
-								+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=di0.id AND df.canceled=0 "
+								+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=di0.id AND df.canceled=FALSE "
 								+ "LEFT JOIN BpmField fi ON fi.id=df.fieldId ")
 
 						// agrega el ultimo dispatch enviado a un destino
 						+ (post = (" LEFT JOIN BpmDispatch di ON di.entityId=ru.id AND di.attentionDate IS NULL "
-								+ "WHERE ru.canceled=0 "
+								+ "WHERE ru.canceled=FALSE "
 								+ (pad_admin ? ""
 										: " AND (ru.delegatedUserId IS NULL OR ru.delegatedUserId=:delegatedUser)")
 								+ (year != null ? " AND ru.year=:year " : "")
@@ -1035,7 +1035,7 @@ public class Service {
 			ext.put("currentDependency", dependency.getFullName());
 		}
 		List<Object[]> fieldActivityList = em.createQuery("SELECT f,df FROM BpmField f "
-				+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=:dispatchId AND f.id=df.fieldId WHERE df.canceled=0 AND f.activityId=:activity ORDER  BY f.weight ASC")
+				+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=:dispatchId AND f.id=df.fieldId WHERE df.canceled=FALSE AND f.activityId=:activity ORDER  BY f.weight ASC")
 				.setParameter("dispatchId", dispatch.getId()).setParameter("activity", activity.getId())
 				.getResultList();
 		List<BpmField> ll = new ArrayList();
