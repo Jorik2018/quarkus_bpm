@@ -40,6 +40,7 @@ public class BpmRelation extends PanacheEntityBase implements Serializable {
     @Column(name = "activity_to_id")
     private int activityToId;
     @Size(max = 40)
+    @Column(name = "_condition")
     private String condition;
     
     @Transient
