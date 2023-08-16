@@ -1,4 +1,6 @@
 quarkus.http.cors=true
+quarkus.http.cors.origins=*
+quarkus.http.cors.methods=GET, POST, PUT, DELETE, OPTIONS
 quarkus.http.port=9553
 quarkus.http.auth.permission.bearer.paths=/
 quarkus.http.auth.permission.bearer.policy=authenticated
