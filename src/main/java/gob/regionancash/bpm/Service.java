@@ -158,6 +158,7 @@ public class Service {
 					em.persist(dispatchField);
 				else
 					em.merge(dispatchField);
+
 				id = XUtil.intValue(pm.get("nid"));
 				dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
 				if (dispatchField == null)
@@ -170,6 +171,7 @@ public class Service {
 					em.persist(dispatchField);
 				else
 					em.merge(dispatchField);
+
 				id = XUtil.intValue(pm.get("aid"));
 				dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
 				if (dispatchField == null)
@@ -178,6 +180,19 @@ public class Service {
 				dispatchField.setFieldId(46);
 				dispatchField.setCanceled(canceled);
 				dispatchField.setValue(X.toText(pm.get("address")));
+				if (dispatchField.getId() == null)
+					em.persist(dispatchField);
+				else
+					em.merge(dispatchField);
+
+				id = XUtil.intValue(pm.get("cid"));
+				dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
+				if (dispatchField == null)
+					dispatchField = new BpmDispatchField();
+				dispatchField.setDispatchId(dispatch.getId());
+				dispatchField.setFieldId(58);
+				dispatchField.setCanceled(canceled);
+				dispatchField.setValue(X.toText(pm.get("position")));
 				if (dispatchField.getId() == null)
 					em.persist(dispatchField);
 				else
