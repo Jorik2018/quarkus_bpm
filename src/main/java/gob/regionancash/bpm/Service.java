@@ -1,10 +1,8 @@
 package gob.regionancash.bpm;
 
 import java.io.File;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
@@ -621,7 +619,14 @@ public class Service {
 						Method method = entity.getClass().getDeclaredMethod(
 								"get" + (fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)));
 						try {
-							bpmField.setValue(method.invoke(entity));
+							
+
+							
+							if(bpmField.getId()==47){
+								bpmField.setValue(method.invoke(entity));
+							}else{
+								bpmField.setValue(method.invoke(entity));
+							}
 							// System.out.println("value=" + bpmField.getValue());
 						} catch (Exception e) {
 							throw new RuntimeException(e);
@@ -1066,12 +1071,18 @@ public class Service {
 
 			}
 			String fieldName = bpmField.getName();
-			if (activity.getId() == 37) {
-				if ("caso_infractor".equals(fieldName) || "dni_infractor".equals(fieldName)
-						|| "domicilio_infractor".equals(fieldName)) {
-					// System.out.println("fieldName=" + bpmField.getValue());
+			//if (bpmField.getId() == 28) {
+				//el campo especial del campo tipo tabla del 
+				List data = new ArrayList();
+				for(int i=0;i<5;i++){
+					People people = new People();
+					people.setAddress(bpmField.getId() +"  address-"+dispatchField.getId());
+					people.setNames(fieldName+"  names-"+dispatchField.getId());
+					people.setFirstSurname("firstSurname-"+dispatchField.getId());
+					data.add(people);
 				}
-			}
+				dispatchField.setData(data);
+			//}
 
 			try {
 				Method method = entity.getClass()
