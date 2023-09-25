@@ -1071,18 +1071,18 @@ public class Service {
 
 			}
 			String fieldName = bpmField.getName();
-			//if (bpmField.getId() == 28) {
+			if (bpmField.getId() == 28) {
 				//el campo especial del campo tipo tabla del 
 				List data = new ArrayList();
 				for(int i=0;i<5;i++){
 					People people = new People();
-					people.setAddress(bpmField.getId() +"  address-"+dispatchField.getId());
-					people.setNames(fieldName+"  names-"+dispatchField.getId());
+					people.setAddress("  address-"+dispatchField.getId());
+					people.setNames("names-"+dispatchField.getId());
 					people.setFirstSurname("firstSurname-"+dispatchField.getId());
 					data.add(people);
 				}
 				dispatchField.setData(data);
-			//}
+			}
 
 			try {
 				Method method = entity.getClass()
