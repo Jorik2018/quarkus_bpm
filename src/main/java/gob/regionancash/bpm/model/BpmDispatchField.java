@@ -40,7 +40,5 @@ public class BpmDispatchField extends PanacheEntityBase implements Serializable 
 	private String value;
 	@Transient
 	private String name;
-	@Transient
-	private Object data;
 
 }

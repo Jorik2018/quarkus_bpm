@@ -1081,8 +1081,9 @@ public class Service {
 					people.setFirstSurname("firstSurname-"+dispatchField.getId());
 					data.add(people);
 				}
-				dispatchField.setData(data);
+				bpmField.setValue(data);
 			}
+
 
 			try {
 				Method method = entity.getClass()
