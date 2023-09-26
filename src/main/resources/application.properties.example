@@ -17,7 +17,7 @@ quarkus.http.body.uploads-directory=C:\\Users\\pc\\AppData\\Local\\Temp
 
 isobit.upload-dir = E://wildfly/bin/.data
 quarkus.hibernate-orm.dialect=gob.regionancash.bpm.MySQLCustomDialect
-quarkus.hibernate-orm.packages=org.isobit.directory.model,org.isobit.app.model,gob.regionancash.rh.model,gob.regionancash.bpm.model,io.quarkus.hibernate.orm.panache
+quarkus.hibernate-orm.packages=org.isobit.directory.model,org.isobit.app.model,gob.regionancash.rh.model,gob.regionancash.pad.model,gob.regionancash.bpm.model,io.quarkus.hibernate.orm.panache
 
 quarkus.hibernate-orm."isobit".datasource=<default>
 quarkus.hibernate-orm."isobit".packages=org.isobit.directory.model,org.isobit.app.model
