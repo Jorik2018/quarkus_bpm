@@ -1074,7 +1074,7 @@ public class Service {
 			if (bpmField.getId() == 28) {
 				//el campo especial del campo tipo tabla del 
 				
-				bpmField.setValue(em.createQuery("SELECT o FROM Offender").getResultList());
+				bpmField.setValue(em.createQuery("SELECT o FROM Offender o").getResultList());
 			}
 
 
