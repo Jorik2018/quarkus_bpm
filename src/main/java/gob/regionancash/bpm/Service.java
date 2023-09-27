@@ -1021,7 +1021,7 @@ public class Service {
 
 			}
 			String fieldName = bpmField.getName();
-			if (bpmField.getId() == 28) {
+			if (bpmField.getId() == 28&&dispatchField!=null) {
 				//el campo especial del campo tipo tabla del 
 				
 				bpmField.setValue(em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
