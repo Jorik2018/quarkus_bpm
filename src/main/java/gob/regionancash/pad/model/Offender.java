@@ -40,6 +40,7 @@ public class Offender implements Serializable {
 
     private boolean canceled;
 
+    @Column(name = "dispatch_id")
     private Integer dispatchId;
 
 }
