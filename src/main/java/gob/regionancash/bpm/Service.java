@@ -47,6 +47,7 @@ import gob.regionancash.bpm.model.BpmDispatchField;
 import gob.regionancash.bpm.model.BpmField;
 import gob.regionancash.bpm.model.BpmProcessRun;
 import gob.regionancash.bpm.model.BpmRelation;
+import gob.regionancash.pad.model.Offender;
 
 @Transactional
 @ApplicationScoped
@@ -95,7 +96,7 @@ public class Service {
 	public Object postRun(BpmProcessRun entity) {
 		EntityManager em = BpmProcessRun.getEntityManager();
 		BpmActivity activity = entity.getActivity();
-		List peoples = entity.getPeoples();
+		List<Offender> peoples = entity.getPeoples();
 		User u = userService.getCurrentUser();
 		// People people = (People) sessionFacade.get("people");
 		BpmDispatch dispatchOld = entity.getDispatch();
@@ -139,63 +140,13 @@ public class Service {
 		if (activity.getId() == 40)
 			entity.setPrescribed(true);
 		if (activity.getId() == 37) {
-			// em.createQuery(null)
-			for (Object peopleMap : peoples) {
-				Map pm = (Map) peopleMap;
-				boolean canceled=pm.get("delete")!=null;
-				System.out.println(pm);
+			for (Offender offender : peoples) {
+				offender.setDispatchId(dispatch.getId());
 				int id = XUtil.intValue(pm.get("id"));
-				BpmDispatchField dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
-				if (dispatchField == null)
-					dispatchField = new BpmDispatchField();
-				dispatchField.setDispatchId(dispatch.getId());
-				dispatchField.setFieldId(28);
-				dispatchField.setCanceled(canceled);
-				dispatchField.setValue(X.toText(pm.get("code")));
-				if (dispatchField.getId() == null)
-					em.persist(dispatchField);
+				if (offender.getId() == null)
+					em.persist(offender);
 				else
-					em.merge(dispatchField);
-
-				id = XUtil.intValue(pm.get("nid"));
-				dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
-				if (dispatchField == null)
-					dispatchField = new BpmDispatchField();
-				dispatchField.setDispatchId(dispatch.getId());
-				dispatchField.setFieldId(20);
-				dispatchField.setCanceled(canceled);
-				dispatchField.setValue(X.toText(pm.get("fullName")));
-				if (dispatchField.getId() == null)
-					em.persist(dispatchField);
-				else
-					em.merge(dispatchField);
-
-				id = XUtil.intValue(pm.get("aid"));
-				dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
-				if (dispatchField == null)
-					dispatchField = new BpmDispatchField();
-				dispatchField.setDispatchId(dispatch.getId());
-				dispatchField.setFieldId(46);
-				dispatchField.setCanceled(canceled);
-				dispatchField.setValue(X.toText(pm.get("address")));
-				if (dispatchField.getId() == null)
-					em.persist(dispatchField);
-				else
-					em.merge(dispatchField);
-
-				id = XUtil.intValue(pm.get("cid"));
-				dispatchField = id > 0 ? em.find(BpmDispatchField.class, id) : null;
-				if (dispatchField == null)
-					dispatchField = new BpmDispatchField();
-				dispatchField.setDispatchId(dispatch.getId());
-				dispatchField.setFieldId(58);
-				dispatchField.setCanceled(canceled);
-				dispatchField.setValue(X.toText(pm.get("position")));
-				if (dispatchField.getId() == null)
-					em.persist(dispatchField);
-				else
-					em.merge(dispatchField);
-				
+					em.merge(offender);
 			}
 		}
 		Map<String, BpmField> fieldMap = new HashMap();
@@ -1074,7 +1025,9 @@ public class Service {
 			if (bpmField.getId() == 28) {
 				//el campo especial del campo tipo tabla del 
 				
-				bpmField.setValue(em.createQuery("SELECT o FROM Offender o").getResultList());
+				bpmField.setValue(em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
+					.setParameter("dispatchId",dispatchField.getDispatchId())
+					.getResultList());
 			}
 
 

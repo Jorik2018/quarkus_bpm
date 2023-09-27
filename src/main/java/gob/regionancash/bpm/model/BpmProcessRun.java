@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import gob.regionancash.pad.model.Offender;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -65,7 +66,7 @@ public class BpmProcessRun extends PanacheEntityBase implements Serializable {
     private Object ext;
 
     @Transient
-    private List peoples;
+    private List<Offender> peoples;
     
     private Integer year;
     

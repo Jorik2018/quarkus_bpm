@@ -40,4 +40,6 @@ public class Offender implements Serializable {
 
     private boolean canceled;
 
+    private Integer dispatchId;
+
 }
