@@ -1005,7 +1005,7 @@ public class Service {
 			ext.put("currentDependency", dependency.getFullName());
 		}
 		List<Object[]> fieldActivityList = em.createQuery("SELECT f,df FROM BpmField f "
-				+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=:dispatchId AND f.id=df.fieldId WHERE df.canceled=FALSE AND f.activityId=:activity ORDER  BY f.weight ASC")
+				+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=:dispatchId AND f.id=df.fieldId WHERE (df.canceled=FALSE OR df.canceled IS null) AND f.activityId=:activity ORDER  BY f.weight ASC")
 				.setParameter("dispatchId", dispatch.getId()).setParameter("activity", activity.getId())
 				.getResultList();
 		List<BpmField> ll = new ArrayList();
@@ -1028,8 +1028,6 @@ public class Service {
 					.setParameter("dispatchId",dispatchField.getDispatchId())
 					.getResultList());
 			}
-
-
 			try {
 				Method method = entity.getClass()
 						.getDeclaredMethod("get" + (fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)));
@@ -1039,8 +1037,8 @@ public class Service {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-			} catch (NoSuchMethodException e) {
-			}
+			} catch (NoSuchMethodException e) {}
+
 			ll.add(bpmField);
 		}
 		activity.setFields(ll);
