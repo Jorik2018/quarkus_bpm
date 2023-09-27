@@ -1016,16 +1016,13 @@ public class Service {
 			if (dispatchField != null) {
 				bpmField.setValue(dispatchField.getValue());
 				bpmField.setDispatchFieldId(dispatchField.getId());
-				// Aqui debe de listarse todos los datos de la persona asi s la primera
-				// actividfad
-
 			}
 			String fieldName = bpmField.getName();
-			if (bpmField.getId() == 28&&dispatchField!=null) {
+			if (bpmField.getId() == 28) {
 				//el campo especial del campo tipo tabla del 
 				
 				bpmField.setValue(em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
-					.setParameter("dispatchId",dispatchField.getDispatchId())
+					.setParameter("dispatchId",dispatchId)
 					.getResultList());
 			}
 			try {
