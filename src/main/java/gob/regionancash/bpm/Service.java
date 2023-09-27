@@ -142,7 +142,6 @@ public class Service {
 		if (activity.getId() == 37) {
 			for (Offender offender : peoples) {
 				offender.setDispatchId(dispatch.getId());
-				int id = XUtil.intValue(pm.get("id"));
 				if (offender.getId() == null)
 					em.persist(offender);
 				else
