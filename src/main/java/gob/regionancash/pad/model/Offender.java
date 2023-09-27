@@ -28,7 +28,7 @@ public class Offender implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    private String fullname;
+    private String fullName;
 
     private String code;
 
