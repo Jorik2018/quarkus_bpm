@@ -827,7 +827,7 @@ public class Service {
 
 		// delegatedUserId
 		ql.add(q = em.createQuery(
-				"SELECT ru,di,GROUP_CONCAT(CONCAT(fi.name,'=',df.value),'|'),'' " + (pre = " FROM BpmProcessRun ru ")
+				"SELECT ru,di,GROUP_CONCAT(CONCAT(fi.name,'=',df.value),'|'),'',di0.id " + (pre = " FROM BpmProcessRun ru ")
 				// Se intenta cargar los campos iniciales del proceso
 						+ ("LEFT JOIN BpmDispatch di0 ON di0.entityId=ru.id AND di0.activityId=37 "
 								+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=di0.id AND df.canceled=FALSE "
@@ -873,7 +873,7 @@ public class Service {
 		return ((TypedQuery<Object[]>) ql.get(0)).getResultList().stream().map((o) -> {
 			BpmProcessRun run = (BpmProcessRun) o[0];
 			BpmDispatch dispatch = (BpmDispatch) o[1];
-			
+			Number dispatchId0 = (Number) o[4];
 
 			
 
@@ -985,12 +985,14 @@ public class Service {
 
 				}
 				mm.put("alll", extString);
+				if(dispatchId0!=null){
 				List re=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
-					.setParameter("dispatchId",dispatch.getId())
+					.setParameter("dispatchId",dispatchId0.intValue())
 					.getResultList();
 				if(!re.isEmpty()){
 					mm.put("offenders", re);
 				}
+			}
 				run.setExt(mm);
 			}
 			if (run.getDelegatedUserId() != null) {
