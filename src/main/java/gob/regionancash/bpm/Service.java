@@ -606,7 +606,7 @@ public class Service {
 						+ "LEFT JOIN Dependency de ON de.id=r.dependencyId LEFT JOIN de.type t \n"
 						+ "LEFT JOIN Position po ON po.id=r.positionId "
 						+ "LEFT JOIN BpmField f ON f.activityId=ato.id "
-						+ "LEFT JOIN BpmDispatchField rf ON rf.dispatchId=r.id AND rf.canceled=FALSE \n"
+						+ "LEFT JOIN BpmDispatchField rf ON rf.dispatchId=r.id AND rf.fieldId=f.id AND rf.canceled=FALSE \n"
 						+ "WHERE r.entityId=:entity ORDER BY r.id \n")
 				.setParameter("entity", id).getResultList();
 		List details2 = new ArrayList();
