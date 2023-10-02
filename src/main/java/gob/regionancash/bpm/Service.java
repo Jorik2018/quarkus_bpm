@@ -656,7 +656,7 @@ public class Service {
 					//	.setParameter("dispatchId", dispatch.getId()).getResultList();
 			if (r[4] != null) {
 				BpmField df=(BpmField) r[4];
-				if(df.getId()==28){
+				if(df.getId().equals(20)){
 					r[5]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
 						.setParameter("dispatchId",dispatch.getId())
 						.getResultList();
