@@ -976,7 +976,7 @@ public class Service {
 			String extString = (String) o[2];
 			if (extString != null) {
 				HashMap mm=new HashMap();
-				for (String item : extString.split("|,")) {
+				for (String item : extString.split("[|],")) {
 					String[] words=item.split("=");
 					if(words.length>1)
 					//Se necesita tener mas cuidado por casos donde pueda el string fallar
