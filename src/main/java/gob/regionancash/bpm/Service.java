@@ -600,7 +600,7 @@ public class Service {
 		TypedQuery<Object[]> q = getTypedQuery();
 		List<Object[]> details = em
 				.createQuery("SELECT r," + "ato.description," + "p.fullName," + "CONCAT(t.name,' ',de.name) "
-						+ ",CONCAT(f.type,'.',f.name,'.',f.label,'=', rf.value)," + "po.name," + "0 "
+						+ ",CONCAT(f.type,'.',f.name,'.',f.label,'=', rf.value)," + "po.name," + "0, rf "
 						+ "FROM BpmDispatch r \n"
 						+ "LEFT JOIN BpmActivity ato ON ato.id=r.activityId LEFT JOIN People p ON p.id=r.peopleId \n"
 						+ "LEFT JOIN Dependency de ON de.id=r.dependencyId LEFT JOIN de.type t \n"
