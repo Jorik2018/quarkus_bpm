@@ -655,12 +655,12 @@ public class Service {
 					//	.createQuery("SELECT rf FROM BpmDispatchField rf WHERE rf.dispatchId=:dispatchId AND rf.canceled=FALSE")
 					//	.setParameter("dispatchId", dispatch.getId()).getResultList();
 			if (r[4] != null) {
-				BpmDispatchField df=(BpmDispatchField) r[4];
-			if(df.getFieldId()==28){
-				r[5]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
-					.setParameter("dispatchId",dispatch.getId())
-					.getResultList();
-			}
+				BpmField df=(BpmField) r[4];
+				if(df.getId()==28){
+					r[5]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
+						.setParameter("dispatchId",dispatch.getId())
+						.getResultList();
+				}
 				if (!(rowt[4] instanceof ArrayList)) {
 					List l = new ArrayList();
 					l.add(new Object[]{r[4],r[5],r[6]});
