@@ -656,17 +656,18 @@ public class Service {
 					//	.setParameter("dispatchId", dispatch.getId()).getResultList();
 			if (r[4] != null) {
 				BpmField df=(BpmField) r[4];
+				df.setValue(r[5]);
 				if(df.getId()==28){
-					r[5]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
+					df.setValue(em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
 						.setParameter("dispatchId",dispatch.getId())
-						.getResultList();
+						.getResultList());
 				}
 				if (!(rowt[4] instanceof ArrayList)) {
 					List l = new ArrayList();
-					l.add(new Object[]{r[4],r[5],r[6]});
+					l.add(r[4]);
 					rowt[4] = l;
 				} else
-					((List) rowt[4]).add(new Object[]{r[4],r[5],r[6]});
+					((List) rowt[4]).add(r[4]);
 			}
 		}
 		return details2;
