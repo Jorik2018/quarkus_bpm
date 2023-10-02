@@ -978,6 +978,7 @@ public class Service {
 				HashMap mm=new HashMap();
 				for (String item : extString.split("|,")) {
 					String[] words=item.split("=");
+					if(words.length>0)
 					//Se necesita tener mas cuidado por casos donde pueda el string fallar
 					mm.put(words[0], words[1]);
 
