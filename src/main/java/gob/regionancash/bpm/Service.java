@@ -650,10 +650,6 @@ public class Service {
 				details2.add(rowt = r);
 				last = dispatch.getId();
 			}
-			
-			//List<BpmDispatchField> dispatchFieldList2 = em
-					//	.createQuery("SELECT rf FROM BpmDispatchField rf WHERE rf.dispatchId=:dispatchId AND rf.canceled=FALSE")
-					//	.setParameter("dispatchId", dispatch.getId()).getResultList();
 			if (r[4] != null) {
 				BpmField df=(BpmField) r[4];
 				df.setValue(r[5]);
@@ -831,7 +827,7 @@ public class Service {
 
 		// delegatedUserId
 		ql.add(q = em.createQuery(
-				"SELECT ru,di,GROUP_CONCAT(CONCAT(fi.name,'=',df.value),'|') " + (pre = " FROM BpmProcessRun ru ")
+				"SELECT ru,di,GROUP_CONCAT(CONCAT(fi.name,'=',df.value),'|'),'' " + (pre = " FROM BpmProcessRun ru ")
 				// Se intenta cargar los campos iniciales del proceso
 						+ ("LEFT JOIN BpmDispatch di0 ON di0.entityId=ru.id AND di0.activityId=37 "
 								+ "LEFT JOIN BpmDispatchField df ON df.dispatchId=di0.id AND df.canceled=FALSE "
@@ -877,6 +873,12 @@ public class Service {
 		return ((TypedQuery<Object[]>) ql.get(0)).getResultList().stream().map((o) -> {
 			BpmProcessRun run = (BpmProcessRun) o[0];
 			BpmDispatch dispatch = (BpmDispatch) o[1];
+			
+
+			o[3]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
+					.setParameter("dispatchId",dispatch.getId())
+					.getResultList();
+
 			if (dispatch != null) {
 				if (dispatch.getActivityId() > 0)
 					run.setActivity(em.find(BpmActivity.class, dispatch.getActivityId()));
