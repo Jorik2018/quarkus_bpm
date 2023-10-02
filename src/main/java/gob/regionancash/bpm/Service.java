@@ -597,10 +597,10 @@ public class Service {
 	public List getDetails(Integer id) {
 		// System.out.println("getDetails");
 		EntityManager em = BpmProcessRun.getEntityManager();
-		TypedQuery<Object[]> q = getTypedQuery();//0 es 6
+		TypedQuery<Object[]> q = getTypedQuery();
 		List<Object[]> details = em
 				.createQuery("SELECT r," + "ato.description," + "p.fullName," + "CONCAT(t.name,' ',de.name) "
-						+ ", f, rf.value, po.name, 0, rf "
+						+ ",CONCAT(f.type,'.',f.name,'.',f.label,'=', rf.value)," + "po.name," + "0 "
 						+ "FROM BpmDispatch r \n"
 						+ "LEFT JOIN BpmActivity ato ON ato.id=r.activityId LEFT JOIN People p ON p.id=r.peopleId \n"
 						+ "LEFT JOIN Dependency de ON de.id=r.dependencyId LEFT JOIN de.type t \n"
@@ -652,10 +652,10 @@ public class Service {
 			if (r[4] != null) {
 				if (!(rowt[4] instanceof List)) {
 					List l = new ArrayList();
-					l.add(new Object[]{r[4],r[5],r[6]});
+					l.add(r[4]);
 					rowt[4] = l;
 				} else
-					((List) rowt[4]).add(new Object[]{r[4],r[5],r[6]});
+					((List) rowt[4]).add(r[4]);
 			}
 		}
 		return details2;
