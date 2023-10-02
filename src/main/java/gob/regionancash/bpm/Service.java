@@ -983,6 +983,7 @@ public class Service {
 					mm.put(words[0], words[1]);
 
 				}
+				mm.put("alll", extString);
 				List re=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
 					.setParameter("dispatchId",dispatch.getId())
 					.getResultList();
