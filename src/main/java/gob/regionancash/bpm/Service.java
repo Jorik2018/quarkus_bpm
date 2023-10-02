@@ -604,9 +604,10 @@ public class Service {
 						+ "FROM BpmDispatch r \n"
 						+ "LEFT JOIN BpmActivity ato ON ato.id=r.activityId LEFT JOIN People p ON p.id=r.peopleId \n"
 						+ "LEFT JOIN Dependency de ON de.id=r.dependencyId LEFT JOIN de.type t \n"
-						+ "LEFT JOIN Position po ON po.id=r.positionId  \n"
+						+ "LEFT JOIN Position po ON po.id=r.positionId "
+						+ "LEFT JOIN BpmField f ON f.activityId=ato.id "
 						+ "LEFT JOIN BpmDispatchField rf ON rf.dispatchId=r.id AND rf.canceled=FALSE \n"
-						+ "LEFT JOIN BpmField f ON f.id=rf.fieldId WHERE r.entityId=:entity ORDER BY r.id \n")
+						+ "WHERE r.entityId=:entity ORDER BY r.id \n")
 				.setParameter("entity", id).getResultList();
 		List details2 = new ArrayList();
 		Object last = false;
@@ -649,8 +650,18 @@ public class Service {
 				details2.add(rowt = r);
 				last = dispatch.getId();
 			}
+			
+			//List<BpmDispatchField> dispatchFieldList2 = em
+					//	.createQuery("SELECT rf FROM BpmDispatchField rf WHERE rf.dispatchId=:dispatchId AND rf.canceled=FALSE")
+					//	.setParameter("dispatchId", dispatch.getId()).getResultList();
 			if (r[4] != null) {
-				if (!(rowt[4] instanceof List)) {
+				BpmDispatchField df=(BpmDispatchField) r[4];
+			if(df.getFieldId()==28){
+				r[5]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
+					.setParameter("dispatchId",dispatch.getId())
+					.getResultList();
+			}
+				if (!(rowt[4] instanceof ArrayList)) {
 					List l = new ArrayList();
 					l.add(new Object[]{r[4],r[5],r[6]});
 					rowt[4] = l;
