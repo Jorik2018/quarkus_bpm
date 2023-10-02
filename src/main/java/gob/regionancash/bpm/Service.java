@@ -875,9 +875,7 @@ public class Service {
 			BpmDispatch dispatch = (BpmDispatch) o[1];
 			
 
-			o[3]=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
-					.setParameter("dispatchId",dispatch.getId())
-					.getResultList();
+			
 
 			if (dispatch != null) {
 				if (dispatch.getActivityId() > 0)
@@ -977,10 +975,20 @@ public class Service {
 			}
 			String extString = (String) o[2];
 			if (extString != null) {
+				HashMap mm=new HashMap();
 				for (String item : extString.split("|,")) {
+					String[] words=item.split("=");
+					//Se necesita tener mas cuidado por casos donde pueda el string fallar
+					mm.put(words[0], words[1]);
 
 				}
-				run.setExt(o[2]);
+				List re=em.createQuery("SELECT o FROM Offender o WHERE o.dispatchId=:dispatchId")
+					.setParameter("dispatchId",dispatch.getId())
+					.getResultList();
+				if(!re.isEmpty()){
+					mm.put("offenders", re);
+				}
+				run.setExt(mm);
 			}
 			if (run.getDelegatedUserId() != null) {
 				User user = em.find(User.class, run.getDelegatedUserId());
