@@ -139,10 +139,15 @@ public class Service {
 		// cuando se prescribe ya no se cuenta el tiempo
 		if (activity.getId() == 40)
 			entity.setPrescribed(true);
+
 		if (activity.getId() == 37) {
 			for (Offender offender : peoples) {
 				offender.setDispatchId(dispatch.getId());
-				if (offender.getId() == null)
+				if(offender.isCanceled()){
+					if(offender.getId()!=null){
+						em.remove(em.find(Offender.class,offender.getId()));
+					}
+				}else if (offender.getId() == null)
 					em.persist(offender);
 				else
 					em.merge(offender);
