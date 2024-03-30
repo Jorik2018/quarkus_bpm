@@ -40,9 +40,9 @@ public class FileFacadeREST {
     @POST
     @Path("download")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadFile(Map m) {
+    public Response downloadFile(@QueryParam("filename") String filename) {
         try {
-            File file = new  File((String)m.get("folder"));
+            File file = new  File(filename);
             FileInputStream fileInputStream = new FileInputStream(file);
             Response.ResponseBuilder responseBuilder = Response.ok(fileInputStream);
             responseBuilder.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
