@@ -61,6 +61,7 @@ public class FileFacadeREST {
     }
     
     @POST
+    @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Object upload(MultipartBody body) throws IOException {
         byte[] fileBytes = body.file.readAllBytes();
