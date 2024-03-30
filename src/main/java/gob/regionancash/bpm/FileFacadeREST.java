@@ -38,7 +38,7 @@ public class FileFacadeREST {
     }
 
     @POST
-    @Path("/download")
+    @Path("download")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(Map m) {
         try {
