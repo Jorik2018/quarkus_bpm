@@ -40,7 +40,7 @@ public class FileFacadeREST {
     @POST
     @Path("/download")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadFile(@QueryParam("filename") String filename) {
+    public Response downloadFile(tring filename) {
         try {
             File file = new  File(filename);
             FileInputStream fileInputStream = new FileInputStream(file);
