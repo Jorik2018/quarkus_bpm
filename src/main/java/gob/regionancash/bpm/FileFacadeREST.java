@@ -37,7 +37,7 @@ public class FileFacadeREST {
         return Map.of("data", list);
     }
 
-    @GET
+    @POST
     @Path("/download")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@QueryParam("filename") String filename) {
