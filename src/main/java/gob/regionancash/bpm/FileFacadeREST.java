@@ -37,6 +37,14 @@ public class FileFacadeREST {
         return Map.of("data", list);
     }
 
+    @POST
+    @Path("download")
+    @PermitAll
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadFilePost(Map m) {
+        return this.downloadFile((String)m.get("folder"));
+    }
+
     @GET
     @Path("download")
     @PermitAll
