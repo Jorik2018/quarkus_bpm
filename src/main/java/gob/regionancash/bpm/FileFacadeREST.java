@@ -1,12 +1,6 @@
 package gob.regionancash.node.controller;
 
-import gob.regionancash.node.model.MenuRouter;
-import gob.regionancash.node.model.Node;
-import gob.regionancash.node.model.NodeRevision;
-import gob.regionancash.node.model.UrlAlias;
-import gob.regionancash.obresec.model.CrimeCategory;
-import gob.regionancash.obresec.service.CrimeCategoryFacadeLocal;
-import io.quarkus.panache.common.Parameters;
+
 
 import java.io.*;
 import java.util.ArrayList;
